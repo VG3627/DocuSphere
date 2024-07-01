@@ -1,35 +1,35 @@
+import React, { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Navbar from './components/navbar';
-import SignUpForm from './components/SignUpForm';
-import LoginForm from './components/LoginForm';
-import Create from './components/Create';
-import Profile from './components/profile';
-import Home from './components/Home';
 import { useAuthStore } from './store';
 import ProtectedRoutes from './protectedRoutes';
+import Spinner from './components/spinner.js'
+// Lazy load components
+const SignUpForm = lazy(() => import('./components/SignUpForm'));
+const LoginForm = lazy(() => import('./components/LoginForm'));
+const Create = lazy(() => import('./components/Create'));
+const Profile = lazy(() => import('./components/profile'));
+const Home = lazy(() => import('./components/Home'));
+
 function App() {
+  const { user } = useAuthStore();
 
-
-  const { user } = useAuthStore() ;
-   
   return (
-      
-      <div className="App">
-      
-         <Router>
-         <Navbar/>
+    <div className="App">
+      <Router>
+        <Navbar />
+        <Suspense fallback={<Spinner/>}>
           <Routes>
-            <Route path='/' element={<Navigate to = '/home'/>}/>
-            {<Route path='/login' element={!user ? <LoginForm/> : <Navigate to='/home'/>}/>}
-            {<Route path='/signup' element={!user ? <SignUpForm/> : <Navigate to='/home'/>}/>}
-            {user && <Route path='/create/:id' element={user ? <Create/> : <Navigate to='/home'/>}/>}user ? 
-            <Route path='/home' element={<Home/>}/>
-            {<Route path='/home/:id' element={user ? <ProtectedRoutes><Profile/></ProtectedRoutes> : <Navigate to='/home'/>}/>}
+            <Route path="/" element={<Navigate to="/home" />} />
+            <Route path="/login" element={!user ? <LoginForm /> : <Navigate to="/home" />} />
+            <Route path="/signup" element={!user ? <SignUpForm /> : <Navigate to="/home" />} />
+            {user && <Route path="/create/:id" element={<Create />} />}
+            <Route path="/home" element={<Home />} />
+            <Route path="/home/:id" element={user ? <ProtectedRoutes><Profile /></ProtectedRoutes> : <Navigate to="/home" />} />
           </Routes>
-         </Router>
-      </div>
-    
-    
+        </Suspense>
+      </Router>
+    </div>
   );
 }
 
