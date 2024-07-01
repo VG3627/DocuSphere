@@ -22,7 +22,7 @@ function App() {
             <Route path='/' element={<Navigate to = '/home'/>}/>
             {<Route path='/login' element={!user ? <LoginForm/> : <Navigate to='/home'/>}/>}
             {<Route path='/signup' element={!user ? <SignUpForm/> : <Navigate to='/home'/>}/>}
-            {user && <Route path='/create/:id' element={user ? <Create/> : <Navigate to='/home'/>}/>}user ? 
+            {user && <Route path='/create/:id' element={user ? <Create/> : <Navigate to='/home'/>}/>} 
             <Route path='/home' element={<Home/>}/>
             {<Route path='/home/:id' element={user ? <ProtectedRoutes><Profile/></ProtectedRoutes> : <Navigate to='/home'/>}/>}
           </Routes>
