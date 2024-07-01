@@ -22,6 +22,32 @@ const Profile = () => {
     {
         return (<Spinner/>) ;
     }
+    console.log(docs) ;
+    if(docs.length === 0)
+    {
+        return (
+            <div className="min-h-screen flex flex-col items-center justify-center bg-blue-500">
+            <div className="text-center">
+              <svg
+                className="w-24 h-24 text-white-500 mx-auto mb-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M9 12h6m2 2H7m-2 4h10m2-16h2a2 2 0 012 2v16a2 2 0 01-2 2H7a2 2 0 01-2-2V5a2 2 0 012-2h2M9 7h6"
+                ></path>
+              </svg>
+              <h2 className="text-2xl font-semibold text-white-500 mb-2">No Documents Found</h2>
+              <p className="text-white-500 mb-6">You haven't created any documents yet.</p>
+            </div>
+          </div>
+        );
+    }
 
 
     return (
