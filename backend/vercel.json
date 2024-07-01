@@ -13,11 +13,7 @@
 
          "headers": {
             "Access-Control-Allow-Origin": "*",
-<<<<<<< HEAD
             "Access-Control-Allow-Methods": "GET ,POST, DELETE,PATCH,OPTIONS",
-=======
-            "Access-Control-Allow-Methods": "GET ,POST, DELETE,PATCH, OPTIONS",
->>>>>>> 2510951bd1fa1459431d9399c83d18ada0abe826
             "Access-Control-Allow-Headers": "X-Requested-With, Content-Type, Accept, Authorization",
             "Access-Control-Allow-Credentials": "true"
           }
