@@ -17,10 +17,12 @@ const server = http.createServer(app);
 const io = new Server(server,
     {
         cors: {
-            origin: "*",
-            methods:['GET','POST','PATCH','DELETE']
-
-        }
+            origin: "http://localhost",
+            methods: ["GET", "POST", "PATCH","DELETE"],
+            credentials: true,
+            transports: ['websocket', 'polling'],
+    },
+    allowEIO3: true
     }
 );
 
