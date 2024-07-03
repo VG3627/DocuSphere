@@ -1,48 +1,46 @@
-import {useState} from 'react';
+import { useState } from 'react';
 import { useAuthStore } from '../store';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate ,Link } from 'react-router-dom';
 const SignUpForm = () => {
-   
-  const [email ,setEmail] = useState('') ;
-  const [password ,setPassword] = useState('') ;
-  const [error,setError] = useState('') ;
-  const navigate = useNavigate() ;
 
-  const {authReducer} = useAuthStore() ;
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
+
+  const { authReducer } = useAuthStore();
   // const user = useAuthstore((state) => state.user) ;
-  const url = process.env.REACT_APP_API_URL ;
+  const url = process.env.REACT_APP_API_URL;
   const handleSubmit = async (e) => {
-    e.preventDefault() ;
-    
-    
+    e.preventDefault();
+
+
     try {
-        const res = await fetch(`${url}/user/signup`,
-            {
-                method:'POST',
-                headers:{ "Content-Type" : "application/json"},
-                body: JSON.stringify({ email, password })
-            }
-        )
-        const data = await res.json() ;
+      const res = await fetch(`${url}/user/signup`,
+        {
+          method: 'POST',
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password })
+        }
+      )
+      const data = await res.json();
+      // console.log(data) ;
+
+      if (data.email) {
+        localStorage.setItem('user', JSON.stringify(data));
+        authReducer({ type: 'LOGIN', payload: data });
         // console.log(data) ;
-       
-        if(data.email)
-        {
-          localStorage.setItem('user',JSON.stringify(data));
-          authReducer({type:'LOGIN',payload:data}) ;
-          // console.log(data) ;
-          navigate('/') ;
-        }
-        else
-        {
-          setError(data.error) ;
-          console.log(error) ;
-        }
-      
-        
-        
+        navigate('/');
+      }
+      else {
+        setError(data.error);
+        console.log(error);
+      }
+
+
+
     } catch (error) {
-        console.log(error) ;
+      console.log(error);
     }
 
   };
@@ -75,8 +73,12 @@ const SignUpForm = () => {
             Sign Up
           </button>
           {error && (
-          <span className="text-red-500 text-sm mt-2 block">{error}</span>
-        )}
+            <span className="text-red-500 text-sm mt-2 block">{error}</span>
+          )}
+          <div className="mt-4 text-center">
+            <span className="text-sm">Already have an account?</span>
+            <Link to="/login" className="text-blue-500 ml-2">Login</Link>
+          </div>
         </form>
       </div>
     </div>
