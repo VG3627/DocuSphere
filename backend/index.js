@@ -10,14 +10,17 @@ require('dotenv').config();
 const docRoutes = require('./routes/docRoutes');
 const userRoutes = require('./routes/userRoutes');
 
+
 const Docs = require('./models/docs.js')
 
 const app = express() 
 const server = http.createServer(app);
+
+
 const io = new Server(server,
     {
         cors: {
-            origin: "*",
+            origin: `${process.env.URL}`,
             methods: ["GET", "POST"],
             transports: ['websocket', 'polling'],
     }
@@ -26,6 +29,19 @@ const io = new Server(server,
 
 app.use(express.json());
 app.use(cors());
+app.use(function(req,res,next)
+{
+    res.header("Access-Control--Allow-Origin",`${process.env.URL}`)
+    res.header(
+        "Access-Control-Allow-Methods",
+        "GET,HEAD,OPTIONS,POST,PUT,PATCH,DELETE"
+    );
+    res.header(
+        "Access-Control-Allow-Headers",
+        "Origin,X-Requested-With,Content-Type,Accept,Authorization"
+    );
+    next() ;
+}) ;
 
 io.on('connection', (socket) => {
     console.log('a user connected');
