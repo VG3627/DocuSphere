@@ -18,11 +18,9 @@ const io = new Server(server,
     {
         cors: {
             origin: "*",
-            methods: ["GET", "POST", "PATCH","DELETE"],
-            credentials: true,
+            methods: ["GET", "POST"],
             transports: ['websocket', 'polling'],
-    },
-    allowEIO3: true
+    }
     }
 );
 
