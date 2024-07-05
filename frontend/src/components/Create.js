@@ -185,7 +185,7 @@ const handleAddAuthor = async () => {
      
       // console.log(userMail) ;
       const userMail = user.email
-      setAuthors([...authors, { userMail , permission }]);
+      setAuthors([...authors, { userMail ,role : permission }]);
       
       try {
         const res = await fetch(`${url}/docs/${docId}`,
@@ -204,6 +204,10 @@ const handleAddAuthor = async () => {
           console.log(data) ;
           // addTolocalStorage({userMail,permission});
           
+        }
+        else
+        {
+          console.log(res) ;
         }
       } catch (error) {
         console.log(error) ;
