@@ -25,7 +25,7 @@ const Create = () => {
   // const currentUser = { email: currUserMail };
  
   const [isSummaryBoxOpen, setIsSummaryBoxOpen] = useState(false);
-  const [summary, setSummary] = useState('');
+
   const [title, setTitle] = useState('');
   const [body, setBody] = useState(''); // Initialize with one empty page
   const navigate = useNavigate() ;
@@ -38,30 +38,8 @@ const Create = () => {
   
   const {data} = useFetch(`${url}/user/`)
 
-  const api_url = process.env.REACT_APP_API_URL3 ;
-  const api_key = process.env.REACT_APP_API_KEY ;
-  const handleSummarize = async () => {
-    // e.preventDefault() ;
-    const res = await fetch(`${api_url}`,
-     {
-        method : 'POST',
-        headers : {
-          'Authorization' : `Bearer ${api_key}`,
-          'Content-Type' : 'application/json'
-        },
-        body : JSON.stringify(body)
-     }
-    );
-    const data = await res.json() ;
-    if(res.ok)
-      {
-          setSummary(data) ;
-      }
-      else
-      {
-          setSummary("could not generate summary") ;
-      }
-  }
+  
+
 
   const url2 = process.env.REACT_APP_API_URL2 ;
   const [socket,setSocket] = useState() ;
@@ -446,7 +424,7 @@ const handleRemoveAuthor = async (userMail) => {
             // preserveWhitespace={true}
             preserveWhitespace
           />
-          {isSummaryBoxOpen && <Modal handleSummarize={() => handleSummarize} onClose={() =>setIsSummaryBoxOpen(false)} summary={summary}/>}
+          {isSummaryBoxOpen && <Modal  onClose={() =>setIsSummaryBoxOpen(false)}/>}
         </div>
       </div> 
     </div>
