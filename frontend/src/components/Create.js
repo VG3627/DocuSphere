@@ -177,7 +177,7 @@ const check = (authors,userr) => {
 
 
 const handleAddAuthor = async () => {
-
+  console.log(authors,"here") ;
   // console.log(selectedUser) ;
   if (selectedUser) {
     const user = data.find(user => user._id === selectedUser);
@@ -186,7 +186,7 @@ const handleAddAuthor = async () => {
       // console.log(userMail) ;
       const userMail = user.email
       setAuthors([...authors, { userMail , permission }]);
-      console.log(authors,"here") ;
+      
       try {
         const res = await fetch(`${url}/docs/${docId}`,
           {
