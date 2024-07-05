@@ -1,5 +1,5 @@
-
-const Modal = ({ onClose }) => {
+import { useState } from "react";
+const Modal = ({ onClose , body}) => {
     const [summary, setSummary] = useState('');
     const api_url = process.env.REACT_APP_API_URL3;
     const api_key = process.env.REACT_APP_API_KEY;

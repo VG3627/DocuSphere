@@ -424,7 +424,7 @@ const handleRemoveAuthor = async (userMail) => {
             // preserveWhitespace={true}
             preserveWhitespace
           />
-          {isSummaryBoxOpen && <Modal  onClose={() =>setIsSummaryBoxOpen(false)}/>}
+          {isSummaryBoxOpen && <Modal  onClose={() =>setIsSummaryBoxOpen(false)} body={body}/>}
         </div>
       </div> 
     </div>
