@@ -49,7 +49,7 @@ const Modal = ({ onClose , body}) => {
 
                 <textarea
                     className="w-full h-full p-2 border border-gray-300 rounded mt-2"
-                    rows="4"
+                    rows="8"
                     value={summary}
                     readOnly
                 ></textarea>
