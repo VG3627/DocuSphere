@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState} from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useNavigate, useParams , Link} from 'react-router-dom';
@@ -142,7 +142,7 @@ const handleTitleChange = (e) => {
 
 
 const [authors, setAuthors] = useState(null);
-const fetchAuthors = useCallback(async () => {
+const fetchAuthors = async () => {
   try {
     const res = await fetch(`${url}/docs/${docId}`);
     const data = await res.json();
@@ -157,11 +157,11 @@ const fetchAuthors = useCallback(async () => {
     console.log(error);
     navigate('/home');
   }
-},[docId]) ;
+} ;
 useEffect(() => {
   // Fetch authors from backend
    fetchAuthors() ;
-},[fetchAuthors]);
+},[docId]);
 
 
 
