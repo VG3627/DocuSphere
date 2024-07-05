@@ -14,7 +14,7 @@ const Modal = ({ onClose , body}) => {
                         'Authorization': `Bearer ${api_key}`,
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify(body)
+                    body: JSON.stringify({body})
                 }
             );
             const data = await res.json();
