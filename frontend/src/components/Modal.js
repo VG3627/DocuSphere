@@ -1,5 +1,5 @@
 
-const Modal = ({onClose,handleSummarize}) => {
+const Modal = ({handleSummarize,onClose,summary}) => {
 
   return (
     <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50">
@@ -20,7 +20,7 @@ const Modal = ({onClose,handleSummarize}) => {
         <textarea
           className="w-full p-2 border border-gray-300 rounded mt-2"
           rows="4"
-          value={"text"}
+          value={summary}
           readOnly
         ></textarea>
       </div>
