@@ -1,11 +1,12 @@
 import { useState } from "react";
 const Modal = ({ onClose , body}) => {
     const [summary, setSummary] = useState('');
+    const [isLoading,setIsLoading] = useState(false) ;
     const api_url = process.env.REACT_APP_API_URL3;
     const api_key = process.env.REACT_APP_API_TOKEN;
     const handleSummarize = async () => {
         // e.preventDefault() ;
-        console.log("here") ;
+        setIsLoading(true) ;
         try {
             const res = await fetch(`${api_url}`,
                 {
@@ -20,10 +21,12 @@ const Modal = ({ onClose , body}) => {
             const data = await res.json();
             console.log(data) ;
             if (res.ok) {
-               
+                setIsLoading(false) ;
                 setSummary(data[0].summary_text);
+
             }
             else {
+                setIsLoading(false) ;
                 setSummary("could not generate summary");
             }
         } catch (error) {
@@ -47,12 +50,12 @@ const Modal = ({ onClose , body}) => {
                     Close
                 </button>
 
-                <textarea
+                {<textarea
                     className="w-full h-full p-2 border border-gray-300 rounded mt-2"
                     rows="8"
-                    value={summary}
+                    value={isLoading ? "summarizing..." : summary}
                     readOnly
-                ></textarea>
+                ></textarea>}
             </div>
         </div>
     );
