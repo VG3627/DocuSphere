@@ -11,10 +11,10 @@ const Modal = ({ onClose , body}) => {
                 {
                     method: 'POST',
                     headers: {
-                        'Authorization': `Bearer ${api_key}`,
+                        Authorization : `Bearer ${api_key}`,
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({body})
+                    body: JSON.stringify({input : body})
                 }
             );
             const data = await res.json();
