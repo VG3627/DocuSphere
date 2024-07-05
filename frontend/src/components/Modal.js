@@ -5,6 +5,7 @@ const Modal = ({ onClose , body}) => {
     const api_key = process.env.REACT_APP_API_KEY;
     const handleSummarize = async () => {
         // e.preventDefault() ;
+        console.log("here") ;
         try {
             const res = await fetch(`${api_url}`,
                 {
