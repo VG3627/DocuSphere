@@ -379,7 +379,7 @@ const handleRemoveAuthor = async (userMail) => {
                     authors.map(({ userMail, permission}) => (
                       <div key={userMail} className="flex justify-between items-center p-2 border-b border-gray-10">
                         {<span>
-                          {userMail} - {role}
+                          {userMail} - {permission}
                         </span>}
                         {(permission !== "owner") && isOwner &&   (
                           <button
