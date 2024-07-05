@@ -14,11 +14,13 @@ const Modal = ({ onClose , body}) => {
                         Authorization : `Bearer ${api_key}`,
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({input : body})
+                    body: JSON.stringify(body)
                 }
             );
             const data = await res.json();
+            console.log(data) ;
             if (res.ok) {
+               
                 setSummary(data[0].summary_text);
             }
             else {
