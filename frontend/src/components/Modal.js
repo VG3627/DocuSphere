@@ -19,7 +19,7 @@ const Modal = ({ onClose , body}) => {
             );
             const data = await res.json();
             if (res.ok) {
-                setSummary(data);
+                setSummary(data[0].summary_text);
             }
             else {
                 setSummary("could not generate summary");
