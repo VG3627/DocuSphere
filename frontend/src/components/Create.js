@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useNavigate, useParams , Link} from 'react-router-dom';
@@ -140,7 +140,7 @@ const handleTitleChange = (e) => {
 
 
 const [authors, setAuthors] = useState(null);
-const fetchAuthors = useMemo(async () => {
+const fetchAuthors = useCallback(async () => {
   try {
     const res = await fetch(`${url}/docs/${docId}`);
     const data = await res.json();
