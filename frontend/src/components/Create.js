@@ -376,7 +376,7 @@ const handleRemoveAuthor = async (userMail) => {
               {isDropdownOpen && (
                 <div className="absolute mt-2 w-50 bg-white shadow-lg border border-gray-300 rounded">
                   {authors && authors.length > 0 ? (
-                    authors.map(({ userMail, role}) => (
+                    authors.map(({ userMail, permission}) => (
                       <div key={userMail} className="flex justify-between items-center p-2 border-b border-gray-10">
                         {<span>
                           {userMail} - {role}
