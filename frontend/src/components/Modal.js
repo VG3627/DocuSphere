@@ -2,10 +2,22 @@ import { useState } from "react";
 const Modal = ({ onClose , body}) => {
     const [summary, setSummary] = useState('');
     const [isLoading,setIsLoading] = useState(false) ;
+
+
+    function countNonWhitespaceCharacters(str) {
+        // Remove all whitespace characters using a regular expression
+        const stringWithoutWhitespace = str.replace(/\s+/g, '');
+        // Return the length of the resulting string
+        return stringWithoutWhitespace.length;
+    }
+
+
     const api_url = process.env.REACT_APP_API_URL3;
     const api_key = process.env.REACT_APP_API_TOKEN;
     const handleSummarize = async () => {
         // e.preventDefault() ;
+
+        console.log(countNonWhitespaceCharacters(body)) ;
         setIsLoading(true) ;
         try {
             const res = await fetch(`${api_url}`,
