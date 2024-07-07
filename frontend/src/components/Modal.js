@@ -16,8 +16,12 @@ const Modal = ({ onClose , body}) => {
     const api_key = process.env.REACT_APP_API_TOKEN;
     const handleSummarize = async () => {
         // e.preventDefault() ;
-
-        console.log(countNonWhitespaceCharacters(body)) ;
+        const charLen = countNonWhitespaceCharacters(body) ;
+        if(charLen < 1000)
+        {
+            setSummary("Number of characters in the document should be greater than 1000 (without white spaces) to summarize it!");
+            return ;
+        }
         setIsLoading(true) ;
         try {
             const res = await fetch(`${api_url}`,
