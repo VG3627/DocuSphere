@@ -22,7 +22,7 @@ const Profile = () => {
     {
         return (<Spinner/>) ;
     }
-    console.log(docs) ;
+    // console.log(docs) ;
     if(docs.length === 0)
     {
         return (
