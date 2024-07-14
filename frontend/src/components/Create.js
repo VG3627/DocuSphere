@@ -31,7 +31,7 @@ const Create = () => {
   const [selectedUser, setSelectedUser] = useState('');
   const [permission, setPermission] = useState('read');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
+  const [unsavedChanges,setUnsavedchanges] = useState(false) ;
   const [isDocloaded, setIsdocloaded] = useState(false);
 
   const url = process.env.REACT_APP_API_URL;
@@ -113,6 +113,7 @@ const Create = () => {
   const handleContentChange = (value) => {
 
     if (isDocloaded) {
+      setUnsavedchanges(true) ;
       socket.emit('send-changes', { docId, title, body: value });
       setBody(value);
     }
@@ -122,6 +123,7 @@ const Create = () => {
   // Handle title change
   const handleTitleChange = (e) => {
     if (isDocloaded) {
+      setUnsavedchanges(true) ;
       socket.emit('send-changes', { docId, title: e.target.value, body });
       setTitle(e.target.value);
     }
@@ -136,12 +138,27 @@ const Create = () => {
 
     const interval = setInterval(() => {
       socket && socket.emit('save-doc', { docId, title, body });
-
-    }, 200)
+      setUnsavedChanges(false);
+    }, 2000)
     return () => {
       clearInterval(interval);
     }
   }, [socket, title, body, docId])
+
+  useEffect(() => {
+    const handleBeforeUnload = (e) => {
+      if (unsavedChanges) {
+        e.preventDefault();
+        e.returnValue = 'You have unsaved changes. Are you sure you want to leave?';
+      }
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, [unsavedChanges]);
 
 
 
