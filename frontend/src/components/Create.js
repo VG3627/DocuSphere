@@ -138,7 +138,7 @@ const Create = () => {
 
     const interval = setInterval(() => {
       socket && socket.emit('save-doc', { docId, title, body });
-      setUnsavedChanges(false);
+      setUnsavedchanges(false);
     }, 2000)
     return () => {
       clearInterval(interval);
