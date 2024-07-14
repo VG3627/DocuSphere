@@ -19,7 +19,7 @@ const Create = () => {
   // if (!localStorage.getItem(`${docId}`)) {
   //   localStorage.setItem(`${docId}`, JSON.stringify([]));
   // }
-
+  const navigate = useNavigate();
   const { user: currUser } = useAuthStore();
   const currUserMail = currUser.email;
   // const currentUser = { email: currUserMail };
@@ -28,11 +28,11 @@ const Create = () => {
 
   const [title, setTitle] = useState('');
   const [body, setBody] = useState(''); // Initialize with one empty page
-  const navigate = useNavigate();
-
   const [selectedUser, setSelectedUser] = useState('');
   const [permission, setPermission] = useState('read');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const [isDocloaded,setIsdocloaded] = useState(false) ;
 
   const url = process.env.REACT_APP_API_URL;
 
@@ -48,14 +48,18 @@ const Create = () => {
     const socketServer = io(`${url2}`)
     setSocket(socketServer)
 
-    socket && socket.emit('join-and-get-doc', docId);
+   
     socket && socket.on("load-document", (data) => {
+
+      setIsdocloaded(true) ;
       console.log(data);
       const title = data.title;
       const body = data.body;
       setTitle(title);
       setBody(body);
     });
+
+    socket && socket.emit('join-and-get-doc', docId);
 
     return () => {
 
@@ -103,16 +107,23 @@ const Create = () => {
 
 
   const handleContentChange = (value) => {
-
-    socket.emit('send-changes', { docId, title, body: value });
-    setBody(value);
+    
+    if(isDocloaded)
+    {
+      socket.emit('send-changes', { docId, title, body: value });
+      setBody(value);
+    }
+    
   };
 
   // Handle title change
   const handleTitleChange = (e) => {
-
-    socket.emit('send-changes', { docId, title: e.target.value, body });
-    setTitle(e.target.value);
+    if(isDocloaded)
+    {
+      socket.emit('send-changes', { docId, title: e.target.value, body });
+      setTitle(e.target.value);
+    }
+    
   };
 
 
