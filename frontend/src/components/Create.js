@@ -32,7 +32,7 @@ const Create = () => {
   const [permission, setPermission] = useState('read');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  const [isDocloaded,setIsdocloaded] = useState(false) ;
+  const [isDocloaded, setIsdocloaded] = useState(false);
 
   const url = process.env.REACT_APP_API_URL;
 
@@ -48,18 +48,8 @@ const Create = () => {
     const socketServer = io(`${url2}`)
     setSocket(socketServer)
 
-   
-    socket && socket.on("load-document", (data) => {
 
-      setIsdocloaded(true) ;
-      console.log(data);
-      const title = data.title;
-      const body = data.body;
-      setTitle(title);
-      setBody(body);
-    });
 
-    socket && socket.emit('join-and-get-doc', docId);
 
     return () => {
 
@@ -70,6 +60,20 @@ const Create = () => {
 
 
   }, [url2]);
+
+  useEffect(() => {
+    socket && socket.on("load-document", (data) => {
+
+      setIsdocloaded(true);
+      console.log(data);
+      const title = data.title;
+      const body = data.body;
+      setTitle(title);
+      setBody(body);
+    });
+
+    socket && socket.emit('join-and-get-doc', docId);
+  },[socket,docId]);
 
 
 
@@ -107,23 +111,21 @@ const Create = () => {
 
 
   const handleContentChange = (value) => {
-    
-    if(isDocloaded)
-    {
+
+    if (isDocloaded) {
       socket.emit('send-changes', { docId, title, body: value });
       setBody(value);
     }
-    
+
   };
 
   // Handle title change
   const handleTitleChange = (e) => {
-    if(isDocloaded)
-    {
+    if (isDocloaded) {
       socket.emit('send-changes', { docId, title: e.target.value, body });
       setTitle(e.target.value);
     }
-    
+
   };
 
 
