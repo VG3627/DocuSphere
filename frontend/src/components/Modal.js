@@ -43,7 +43,7 @@ const Modal = ({ onClose , body}) => {
             }
             else {
                 setIsLoading(false) ;
-                setSummary("could not generate summary");
+                setSummary("could not generate summary. Try again after few seconds.");
             }
         } catch (error) {
             console.log(error) ;
