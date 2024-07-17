@@ -257,7 +257,7 @@ const Create = () => {
       );
       const data = await res.json();
       if (res.ok) {
-        localStorage.setItem(`${docId}`, JSON.stringify(authors));
+        // localStorage.setItem(`${docId}`, JSON.stringify(authors));
         console.log(data);
       }
     } catch (error) {

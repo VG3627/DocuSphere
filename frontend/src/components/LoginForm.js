@@ -31,14 +31,6 @@ const LoginForm = () => {
         {
           localStorage.setItem('user',JSON.stringify(data));
           authReducer({type:'LOGIN',payload:data}) ;
-          if(user)
-          {
-            setTimeout(() => {
-              localStorage.removeItem('user') ;
-              authReducer({type : 'LOGOUT'})
-            },3600000) ;
-          }
-        
           console.log(data) ;
           navigate('/') ;
         }
