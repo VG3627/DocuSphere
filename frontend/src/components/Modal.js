@@ -16,6 +16,7 @@ const Modal = ({ onClose , body}) => {
     const api_key = process.env.REACT_APP_API_TOKEN;
     const handleSummarize = async () => {
         // e.preventDefault() ;
+        console.log(body);
         const charLen = countNonWhitespaceCharacters(body) ;
         if(charLen < 1000)
         {
@@ -31,7 +32,7 @@ const Modal = ({ onClose , body}) => {
                         Authorization : `Bearer ${api_key}`,
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify(body)
+                    body: JSON.stringify({inputs: body})
                 }
             );
             const data = await res.json();
