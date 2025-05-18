@@ -31,7 +31,7 @@ const LoginForm = () => {
         {
           localStorage.setItem('user',JSON.stringify(data));
           authReducer({type:'LOGIN',payload:data}) ;
-          console.log(data) ;
+          // console.log(data) ;
           navigate('/') ;
         }
         else
